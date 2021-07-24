@@ -13,3 +13,4 @@ if __name__ == "__main__":
 
     Updater.start_polling()
     Updater.idle()    
+    UWU
