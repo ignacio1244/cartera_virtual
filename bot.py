@@ -1,4 +1,6 @@
 from telegram.ext import  Updater, CommandHandler
+import requests
+import schedule
 
 def start(update, context):
     update.message.reply_text("hola hola")
@@ -12,6 +14,8 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("start", start))
 
     Updater.start_polling()
-    Updater.idle()
-    UWU
-    uwu de invitacion
+    Updater.idle()    
+
+
+    asdasd
+asdasdasdasda
