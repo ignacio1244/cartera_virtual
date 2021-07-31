@@ -1,21 +1,18 @@
-from telegram.ext import  Updater, CommandHandler
-import requests
-import schedule
 
-def start(update, context):
-    update.message.reply_text("hola hola")
+import telebot
 
+TOKEN = None
 
-if __name__ == "__main__":
-    Updater = Updater(token="1874222275:AAHJu-ptKk8yacJ8V-jR4FKUF6dvSylugXk", use_context = True )
+with open("token.txt") as f:
+    TOKEN = f.read().strip() 
 
-    dp = Updater.dispatcher
+bot = telebot.TeleBot(TOKEN)  
 
-    dp.add_handler(CommandHandler("start", start))
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, "¿Me ha llamado maestro?")
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+    bot.reply_to(message, message.text)
+bot.polling()
 
-    Updater.start_polling()
-    Updater.idle()    
-
-
-    asdasd
-asdasdasdasda
