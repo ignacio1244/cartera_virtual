@@ -1,39 +1,16 @@
-from telegram.ext import  Updater, CommandHandler, ConversationHandler, MessageHandler, Filters, Requests , Schedule
+import telebot
 
-INPUT_TEXT = 0
+TOKEN = None
 
-def start(update, context):
-    update.message.reply_text("hola hola")
+with open("token.txt") as f:
+    TOKEN = f.read().strip() 
 
-def pago(update, context):
-    update.message.reply_text("el saldo actual es: ")
+bot = telebot.TeleBot(TOKEN)  
 
-    return INPUT_TEXT
-
-def input_text(update, context):
-    text = update.message.text
-    print(text)
-
-if __name__ == "__main__":
-    Updater = Updater(token="1874222275:AAHJu-ptKk8yacJ8V-jR4FKUF6dvSylugXk", use_context = True )
-
-    dp = Updater.dispatcher
-
-    dp.add_handler(CommandHandler("start", start))
-
-    dp.add_handler(ConversationHandler(
-        entry_points=[
-            CommandHandler("pago", pago)
-        ],
-        states={
-            INPUT_TEXT: [MessageHandler(Filters.text, input_text)]
-        },         
-        fallbacks=[]
-    ))
-
-    Updater.start_polling()
-    Updater.idle()    
-
-
-    asdasd
-asdasdasdasda
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, "¿Me ha llamado maestro?")
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+    bot.reply_to(message, message.text)
+bot.polling()
